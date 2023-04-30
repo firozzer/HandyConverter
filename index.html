@@ -9,9 +9,17 @@
 </head>
 <body>
   <div id="runningPace">
-    <input type="text" id="runningPaceInKm">
-    <input type="range" orient="vertical" id="runningPaceSlider" min="1" max="100" step="1">    
-    <input type="text" id="runningPaceInMi">
+    <div id="runningInputElems">
+      <div id="kmPaceSection">
+        <input type="text" id="runningPaceInKm" name="runningPaceInKm" class="myFontSize">
+        <label for="runningPaceInKm" class="myFontSize">mins/km</label>
+      </div>
+      <div id="miPaceSection">
+        <input type="text" id="runningPaceInMi" name="runningPaceInMi" class="myFontSize">
+        <label for="runningPaceInMi" class="myFontSize">mins/mi</label>
+      </div>
+    </div>
+    <input type="range" orient="vertical" id="runningPaceSlider" min="1" max="900" step="1">
   </div>
 </body>
 <footer>

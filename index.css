@@ -1,13 +1,27 @@
+.myFontSize {
+    font-size: 1.5em;
+}
+
+#runningInputElems{
+    display: flex;
+    flex-direction: column;
+    gap:10vh;
+}
+
+input{
+    width: 100px;
+    display: block;
+}
+
 input[type=range][orient=vertical]
 {
     writing-mode: bt-lr; /* IE */
     -webkit-appearance: slider-vertical; /* Chromium */
-    height: 80vh;
+    height: 90vh;
 }
 
 #runningPace {
     display: flex;
-    flex-direction: column;
     align-items: center;
     position: absolute;
     left: 50%;
