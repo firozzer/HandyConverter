@@ -1,5 +1,6 @@
 // magic numbers
 const MAX_SLIDER_VAL = 900; // corresponds to 900 secs
+const MIN_SLIDER_VAL = 60; // corresponds to 60 secs
 const SLIDER_VAL_AT_START = 630; // corresponds to 630 secs or 5:30 / km
 const SLIDER_MAX_1_MIN_PER_KM = 840; // Use this if you want max slider to be 1 min/km. It's used in formula ahead
 const SLIDER_MAX_2_MIN_PER_KM = 780; // Use this if you want max slider to be 1 min/km. It's used in formula ahead
@@ -10,6 +11,7 @@ const kph = document.querySelector("#kph");
 const mph = document.querySelector("#mph");
 const theSlider = document.querySelector("#theSlider");
 theSlider.setAttribute('max', MAX_SLIDER_VAL.toString());
+theSlider.setAttribute('min', MIN_SLIDER_VAL.toString());
 theSlider.value = SLIDER_VAL_AT_START.toString();
 // set initial values
 const valOfSlider = parseInt(theSlider.value);

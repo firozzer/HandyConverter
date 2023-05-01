@@ -18,19 +18,41 @@ body {
     text-align: center;
 }
 
-input{
-    background-color: grey;
-}
-
-input[type=range][orient=vertical]
-{
-    writing-mode: bt-lr; /* IE */
-    -webkit-appearance: slider-vertical; /* Chromium */
-    height: 90vh;
-}
-
 #runningPace {
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+    input{
+        background-color: grey;
+    }
+
+    #holderForTxtInputs {
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+    }
+
+
+/* Portrait */
+@media screen and (orientation:portrait) {    
+    input[type=range][orient=vertical]
+    {
+        z-index: 1;
+        position: absolute;
+        -webkit-appearance: slider-vertical; /* Chromium */
+        height: 90vh;
+    }
+}
+/* Landscape */
+@media screen and (orientation:landscape) {
+    input[type=range][orient=vertical]
+    {
+        position: absolute;
+        top: 50%;
+        z-index: 1;
+        transform: translate(0, -100%);
+        width: 95vw;
+    }
 }
