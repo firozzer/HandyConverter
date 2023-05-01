@@ -1,0 +1,10 @@
+# ignore everything...
+*
+
+# ... except these files
+!index.html
+!index.css
+!index.ts
+!.gitignore
+!LICENCE
+!tsconfig.json
