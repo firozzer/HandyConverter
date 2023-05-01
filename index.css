@@ -1,16 +1,26 @@
-.myFontSize {
-    font-size: 1.5em;
-}
-
-#runningInputElems{
+body {
+    color: lightgrey;
+    background-color: black;
     display: flex;
     flex-direction: column;
-    gap:10vh;
+    align-items: center;
+}
+
+.respectivePaceSections{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.paceInputs {
+    font-size: 1.4em;
+    color: white;
+    width: 100%;
+    text-align: center;
 }
 
 input{
-    width: 100px;
-    display: block;
+    background-color: grey;
 }
 
 input[type=range][orient=vertical]
@@ -22,9 +32,6 @@ input[type=range][orient=vertical]
 
 #runningPace {
     display: flex;
+    justify-content: space-around;
     align-items: center;
-    position: absolute;
-    left: 50%;
-    top: 50%;  
-    transform: translate(-50%, -50%);
 }

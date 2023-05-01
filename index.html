@@ -9,17 +9,15 @@
 </head>
 <body>
   <div id="runningPace">
-    <div id="runningInputElems">
-      <div id="kmPaceSection">
-        <input type="text" id="runningPaceInKm" name="runningPaceInKm" class="myFontSize">
-        <label for="runningPaceInKm" class="myFontSize">mins/km</label>
-      </div>
-      <div id="miPaceSection">
-        <input type="text" id="runningPaceInMi" name="runningPaceInMi" class="myFontSize">
-        <label for="runningPaceInMi" class="myFontSize">mins/mi</label>
-      </div>
+    <div class="respectivePaceSections">
+      <input type="number" maxlength="4" id="runningPaceInKm" name="runningPaceInKm" class="paceInputs"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+      <label for="runningPaceInKm" class="paceInputs">mmss / km</label>
     </div>
-    <input type="range" orient="vertical" id="runningPaceSlider" min="1" max="900" step="1">
+    <input type="range" orient="vertical" id="runningPaceSlider" min="1" max="900" value="730" step="1">
+    <div class="respectivePaceSections">
+      <input type="number" maxlength="4" id="runningPaceInMi" name="runningPaceInMi" class="paceInputs"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+      <label for="runningPaceInMi" class="paceInputs">mmss / mi</label>
+    </div>
   </div>
 </body>
 <footer>
