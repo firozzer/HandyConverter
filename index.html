@@ -10,13 +10,19 @@
 <body>
   <div id="runningPace">
     <div class="respectivePaceSections">
-      <input type="number" maxlength="4" id="runningPaceInKm" name="runningPaceInKm" class="paceInputs"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
-      <label for="runningPaceInKm" class="paceInputs">mmss / km</label>
+      <input disabled type="text" maxlength="4" id="minPerKm" name="minPerKm" class="paceInputs"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+      <label for="minPerKm" class="paceInputs">mm:ss / km</label>
+      <br> <br>
+      <input disabled type="number" id="kph" name="kph" class="paceInputs"">
+      <label for="kph" class="paceInputs">kph</label>
     </div>
-    <input type="range" orient="vertical" id="runningPaceSlider" min="1" max="900" value="730" step="1">
+    <input type="range" orient="vertical" id="theSlider" min="1" step="1">
     <div class="respectivePaceSections">
-      <input type="number" maxlength="4" id="runningPaceInMi" name="runningPaceInMi" class="paceInputs"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
-      <label for="runningPaceInMi" class="paceInputs">mmss / mi</label>
+      <input disabled type="text" maxlength="4" id="minPerMi" name="minPerMi" class="paceInputs"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+      <label for="minPerMi" class="paceInputs">mm:ss / mi</label>
+      <br> <br>
+      <input disabled type="number" id="mph" name="mph" class="paceInputs"">
+      <label for="mph" class="paceInputs">mph</label>
     </div>
   </div>
 </body>
