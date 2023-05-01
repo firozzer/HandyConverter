@@ -9,6 +9,7 @@ body {
 .respectivePaceSections{
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .paceInputs {
@@ -16,12 +17,14 @@ body {
     color: white;
     width: 100%;
     text-align: center;
+    width: 40%;
 }
 
 #runningPace {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
+    width: 100vw;
 }
 
     input{
