@@ -2,8 +2,8 @@
 const MAX_SLIDER_VAL = 900 // corresponds to 900 secs
 const MIN_SLIDER_VAL = 60 // corresponds to 60 secs
 const SLIDER_VAL_AT_START = 630 // corresponds to 630 secs or 5:30 / km
-const SLIDER_MAX_1_MIN_PER_KM = 840 // Use this if you want max slider to be 1 min/km. It's used in formula ahead
-const SLIDER_MAX_2_MIN_PER_KM = 780 // Use this if you want max slider to be 1 min/km. It's used in formula ahead
+const SLIDER_DEFAULT_1_MIN_PER_KM = 840 // Use this if you want max slider to be 1 min/km. It's used in formula ahead
+const SLIDER_DEFAULT_2_MIN_PER_KM = 780 // Use this if you want max slider to be 1 min/km. It's used in formula ahead
 
 // grab the elements
 const minPerKm: HTMLInputElement = document.querySelector("#minPerKm")
@@ -17,7 +17,7 @@ theSlider.value = SLIDER_VAL_AT_START.toString()
 
 // set initial values
 const valOfSlider = parseInt(theSlider.value)
-const secsOfSlider = valOfSlider - SLIDER_MAX_1_MIN_PER_KM - (2 * (valOfSlider - MAX_SLIDER_VAL))
+const secsOfSlider = valOfSlider - SLIDER_DEFAULT_1_MIN_PER_KM - (2 * (valOfSlider - MAX_SLIDER_VAL))
 minPerKm.value =  new Date(secsOfSlider * 1000).toISOString().slice(14,19).replace(':', '')
 minPerMi.value =  new Date((secsOfSlider * 1.60934) * 1000).toISOString().slice(14,19).replace(':', '')
 
@@ -32,7 +32,8 @@ mph.value = (Math.round((someMiVal + Number.EPSILON) * 100) / 100).toString()
 // if slider is slid, change the valuessd
 theSlider.addEventListener("input", (event) => {
   const valOfSlider = parseInt((event.target as HTMLInputElement).value)
-  const secsOfSlider = valOfSlider - SLIDER_MAX_1_MIN_PER_KM - (2 * (valOfSlider - MAX_SLIDER_VAL))
+  // God knows below formula. Reason why i didn't keep slider same val as tot min/km secs is because i want inverse handling of slider.
+  const secsOfSlider = valOfSlider - SLIDER_DEFAULT_1_MIN_PER_KM - (2 * (valOfSlider - MAX_SLIDER_VAL)) 
   
   minPerKm.value = new Date(secsOfSlider * 1000).toISOString().slice(14,19).replace(':', '')
   minPerMi.value = new Date((secsOfSlider * 1.60934) * 1000).toISOString().slice(14,19).replace(':', '')
@@ -43,6 +44,8 @@ theSlider.addEventListener("input", (event) => {
   const secsForAMi = secsOfSlider * 1.60934
   const someMiVal = 3600 / secsForAMi
   mph.value = (Math.round((someMiVal + Number.EPSILON) * 100) / 100).toString()
+
+  console.log("yooooo", theSlider.value, secsOfSlider)
 })
 
 minPerKm.addEventListener('input', (event) => {
@@ -84,11 +87,15 @@ minPerKm.addEventListener('input', (event) => {
     kph.value = newKphVal.toString()
     
     // hereon doing stuff only for mph
-    const newMphVal = Math.round((3600 / totalSecsForMile + Number.EPSILON) * 100) / 100
-    console.log(newMphVal, 'new mph val')
+    const funkyNum = totalSecs*1.60934
+    const newMphVal = Math.round((3600 / funkyNum + Number.EPSILON) * 100) / 100
+    // console.log(newMphVal, 'new mph val')
     mph.value = newMphVal.toString()
-    
-    console.log('succuly done all')
+
+    // God only knows how i built this formula. Reason why i didn't keep slider same val as tot min/km secs is because i want inverse handling of slider.
+    const newValOfSlider = MAX_SLIDER_VAL - (totalSecs - MIN_SLIDER_VAL) * 2 + (totalSecs - MIN_SLIDER_VAL)
+    theSlider.value = newValOfSlider
+    console.log('succuly done all', newValOfSlider, totalSecs)
   } else {
     console.warn('WRONG NUM BROOOOOOOOO')
     minPerMi.value = ''
