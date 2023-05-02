@@ -34,8 +34,8 @@ theSlider.addEventListener("input", (event) => {
   const valOfSlider = parseInt((event.target as HTMLInputElement).value)
   const secsOfSlider = valOfSlider - SLIDER_MAX_1_MIN_PER_KM - (2 * (valOfSlider - MAX_SLIDER_VAL))
   
-  minPerKm.value = new Date(secsOfSlider * 1000).toISOString().slice(14,19)
-  minPerMi.value = new Date((secsOfSlider * 1.60934) * 1000).toISOString().slice(14,19)
+  minPerKm.value = new Date(secsOfSlider * 1000).toISOString().slice(14,19).replace(':', '')
+  minPerMi.value = new Date((secsOfSlider * 1.60934) * 1000).toISOString().slice(14,19).replace(':', '')
   
   const someFrkyNum = 3600 / secsOfSlider
   kph.value = (Math.round((someFrkyNum + Number.EPSILON) * 100) / 100).toString()
@@ -55,21 +55,45 @@ minPerKm.addEventListener('input', (event) => {
     }
     const secsOfNum = parseInt(theNumInputted.slice(-2))
     if (secsOfNum > 59) {
-      console.warn("Secs wrong mannnnnn")
+      console.warn('WRONG sECS SISSSSSSSSS')
+      minPerMi.value = '';
+      kph.value = ''
+      mph.value = ''
+      return
     }
     // console.log(`Got ${minsOfNum}min ${secsOfNum}secs`)
     const totalSecs = (minsOfNum*60) + secsOfNum
+
+    // hereon doing stuff only for min/mi
     const totalSecsForMile = totalSecs * 0.621371
     // console.log(totalSecs, totalSecsForMile, 'total secs')
     const minOfMile = Math.floor(totalSecsForMile / 60)
     // console.log(minOfMile, 'min of mile')
     const secsOfMile = totalSecsForMile % 60
     // console.log(secsOfMile, 'secs of mile')
-    const secsRounded = Math.round((secsOfMile + Number.EPSILON)) 
+    let secsRounded: any = Math.round((secsOfMile + Number.EPSILON)) 
     // console.log(secsRounded, 'secsrounded')
+    if (secsRounded < 10) {
+      secsRounded = 0 + secsRounded.toString()
+    }
     minPerMi.value = `${minOfMile}${secsRounded}`
+
+    // hereon doing stuff only for kph
+    const newKphVal = Math.round((3600 / totalSecs + Number.EPSILON) * 100) / 100
+    // console.log(newKphVal, 'totalsecsfor kph')
+    kph.value = newKphVal.toString()
+    
+    // hereon doing stuff only for mph
+    const newMphVal = Math.round((3600 / totalSecsForMile + Number.EPSILON) * 100) / 100
+    console.log(newMphVal, 'new mph val')
+    mph.value = newMphVal.toString()
+    
+    console.log('succuly done all')
   } else {
-    console.warn("ENTER CORRECT NUMBRO")
+    console.warn('WRONG NUM BROOOOOOOOO')
+    minPerMi.value = ''
+    kph.value = ''
+    mph.value = ''
   }
 })
 
