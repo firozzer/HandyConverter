@@ -59,6 +59,7 @@ theRunningInputs.forEach(function(elem) {
     const theVal = theInputElem.value
     theInputElem.value = theVal.replace(':', '')
     theInputElem.setAttribute('type', 'number')
+    theInputElem.select();
   })
   elem.addEventListener('blur', (event) =>{
     const theInputElem = event.target as HTMLInputElement
