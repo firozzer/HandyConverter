@@ -224,7 +224,7 @@ kph.addEventListener('input', (event) => {
       secsRounded = '00'
       minOfKm += 1
     }
-    minPerKm.value = `${minOfKm}${secsRounded}`    
+    minPerKm.value = `${minOfKm}:${secsRounded}`    
   
     // doing kph to minPerMi
     let minOfMile = Math.floor(secsPerMi / 60)
@@ -239,7 +239,7 @@ kph.addEventListener('input', (event) => {
       secsRoundedForMi = '00'
       minOfMile += 1
     }
-    minPerMi.value = `${minOfMile}${secsRoundedForMi}`
+    minPerMi.value = `${minOfMile}:${secsRoundedForMi}`
   
     // // hereon doing stuff only for mph
     const funkyNum = parseFloat(theNumInputted) * 0.621371
@@ -281,7 +281,7 @@ mph.addEventListener('input', (event) => {
       secsRounded = '00'
       minOfKm += 1
     }
-    minPerKm.value = `${minOfKm}${secsRounded}`    
+    minPerKm.value = `${minOfKm}:${secsRounded}`    
   
     // doing mph to minPerMi
     let minOfMile = Math.floor(secsPerMi / 60)
@@ -296,7 +296,7 @@ mph.addEventListener('input', (event) => {
       secsRoundedForMi = '00'
       minOfMile += 1
     }
-    minPerMi.value = `${minOfMile}${secsRoundedForMi}`
+    minPerMi.value = `${minOfMile}:${secsRoundedForMi}`
   
     // // hereon doing stuff only for mph to kph
     const funkyNum = parseFloat(theNumInputted) * 1.60934
