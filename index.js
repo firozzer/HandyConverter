@@ -28,9 +28,9 @@ theSlider.addEventListener("input", (event) => {
     const valOfSlider = parseInt(event.target.value);
     // God knows below formula. Reason why i didn't keep slider same val as tot min/km secs is because i want inverse handling of slider.
     const secsOfSlider = valOfSlider - SLIDER_DEFAULT_1_MIN_PER_KM - (2 * (valOfSlider - MAX_SLIDER_VAL));
-    minPerKm.value = new Date(secsOfSlider * 1000).toISOString().slice(14, 19).replace(':', '');
+    minPerKm.value = new Date(secsOfSlider * 1000).toISOString().slice(14, 19);
     minPerKm.classList.remove('incorrectInput');
-    minPerMi.value = new Date((secsOfSlider * 1.60934) * 1000).toISOString().slice(14, 19).replace(':', '');
+    minPerMi.value = new Date((secsOfSlider * 1.60934) * 1000).toISOString().slice(14, 19);
     minPerMi.classList.remove('incorrectInput');
     const someFrkyNum = 3600 / secsOfSlider;
     kph.value = (Math.round((someFrkyNum + Number.EPSILON) * 100) / 100).toString();
