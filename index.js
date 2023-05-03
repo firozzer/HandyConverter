@@ -16,8 +16,8 @@ theSlider.value = SLIDER_VAL_AT_START.toString();
 // set initial values
 const valOfSlider = parseInt(theSlider.value);
 const secsOfSlider = valOfSlider - SLIDER_DEFAULT_1_MIN_PER_KM - (2 * (valOfSlider - MAX_SLIDER_VAL));
-minPerKm.value = new Date(secsOfSlider * 1000).toISOString().slice(14, 19).replace(':', '');
-minPerMi.value = new Date((secsOfSlider * 1.60934) * 1000).toISOString().slice(14, 19).replace(':', '');
+minPerKm.value = new Date(secsOfSlider * 1000).toISOString().slice(14, 19);
+minPerMi.value = new Date((secsOfSlider * 1.60934) * 1000).toISOString().slice(14, 19);
 const someFrkyNum = 3600 / secsOfSlider;
 kph.value = (Math.round((someFrkyNum + Number.EPSILON) * 100) / 100).toString();
 const secsForAMi = secsOfSlider * 1.60934;
@@ -29,13 +29,54 @@ theSlider.addEventListener("input", (event) => {
     // God knows below formula. Reason why i didn't keep slider same val as tot min/km secs is because i want inverse handling of slider.
     const secsOfSlider = valOfSlider - SLIDER_DEFAULT_1_MIN_PER_KM - (2 * (valOfSlider - MAX_SLIDER_VAL));
     minPerKm.value = new Date(secsOfSlider * 1000).toISOString().slice(14, 19).replace(':', '');
+    minPerKm.classList.remove('incorrectInput');
     minPerMi.value = new Date((secsOfSlider * 1.60934) * 1000).toISOString().slice(14, 19).replace(':', '');
+    minPerMi.classList.remove('incorrectInput');
     const someFrkyNum = 3600 / secsOfSlider;
     kph.value = (Math.round((someFrkyNum + Number.EPSILON) * 100) / 100).toString();
+    kph.classList.remove('incorrectInput');
     const secsForAMi = secsOfSlider * 1.60934;
     const someMiVal = 3600 / secsForAMi;
     mph.value = (Math.round((someMiVal + Number.EPSILON) * 100) / 100).toString();
+    mph.classList.remove('incorrectInput');
     console.log("yooooo", theSlider.value, secsOfSlider);
+});
+// making the running inputs pre-formatted with a colon
+const theRunningInputs = document.querySelectorAll('.runPace');
+theRunningInputs.forEach(function (elem) {
+    elem.addEventListener('focus', (event) => {
+        const theInputElem = event.target;
+        const theVal = theInputElem.value;
+        theInputElem.value = theVal.replace(':', '');
+        theInputElem.setAttribute('type', 'number');
+    });
+    elem.addEventListener('blur', (event) => {
+        const theInputElem = event.target;
+        theInputElem.setAttribute('type', 'text');
+        const theVal = theInputElem.value;
+        const inputIsValid = validateMMSSInput(theVal);
+        if (inputIsValid) {
+            let finalVal;
+            if (!theVal) {
+                return;
+            }
+            else if (theVal.length === 1) {
+                finalVal = `00:0${theVal}`;
+            }
+            else if (theVal.length === 2) {
+                finalVal = `00:${theVal}`;
+            }
+            else {
+                const theLaat2 = theVal.slice(-2);
+                const theFront = parseInt(theVal.slice(0, -2)); // parse int to remove leading 0 if any
+                finalVal = `${theFront}:${theLaat2}`;
+                if (finalVal.length === 4)
+                    finalVal = `0${theFront}:${theLaat2}`;
+            }
+            theInputElem.value = finalVal;
+            theInputElem.classList.remove('incorrectInput');
+        }
+    });
 });
 minPerKm.addEventListener('input', (event) => {
     let minsOfNum = 0;
@@ -48,11 +89,13 @@ minPerKm.addEventListener('input', (event) => {
         const secsOfNum = parseInt(theNumInputted.slice(-2));
         if (secsOfNum > 59) {
             console.warn('WRONG sECS SISSSSSSSSS');
+            minPerKm.classList.add('incorrectInput');
             minPerMi.value = '';
             kph.value = '';
             mph.value = '';
             return;
         }
+        minPerKm.classList.remove('incorrectInput');
         // console.log(`Got ${minsOfNum}min ${secsOfNum}secs`)
         const totalSecs = (minsOfNum * 60) + secsOfNum;
         // hereon doing stuff only for min/mi
@@ -71,16 +114,19 @@ minPerKm.addEventListener('input', (event) => {
             secsRounded = '00';
             minOfMile += 1;
         }
-        minPerMi.value = `${minOfMile}${secsRounded}`;
+        minPerMi.value = `${minOfMile}:${secsRounded}`;
+        minPerMi.classList.remove('incorrectInput');
         // hereon doing stuff only for kph
         const newKphVal = Math.round((3600 / totalSecs + Number.EPSILON) * 100) / 100;
         // console.log(newKphVal, 'totalsecsfor kph')
         kph.value = newKphVal.toString();
+        kph.classList.remove('incorrectInput');
         // hereon doing stuff only for mph
         const funkyNum = totalSecs * 1.60934;
         const newMphVal = Math.round((3600 / funkyNum + Number.EPSILON) * 100) / 100;
         // console.log(newMphVal, 'new mph val')
         mph.value = newMphVal.toString();
+        mph.classList.remove('incorrectInput');
         // God only knows how i built this formula. Reason why i didn't keep slider same val as tot min/km secs is because i want inverse handling of slider.
         const newValOfSlider = MAX_SLIDER_VAL - (totalSecs - MIN_SLIDER_VAL) * 2 + (totalSecs - MIN_SLIDER_VAL);
         theSlider.value = newValOfSlider.toString();
@@ -88,6 +134,7 @@ minPerKm.addEventListener('input', (event) => {
     }
     else {
         console.warn('WRONG NUM BROOOOOOOOO');
+        minPerKm.classList.add('incorrectInput');
         minPerMi.value = '';
         kph.value = '';
         mph.value = '';
@@ -104,11 +151,13 @@ minPerMi.addEventListener('input', (event) => {
         const secsOfNum = parseInt(theNumInputted.slice(-2));
         if (secsOfNum > 59) {
             console.warn('WRONG sECS SISSSSSSSSS');
+            minPerMi.classList.add('incorrectInput');
             minPerKm.value = '';
             kph.value = '';
             mph.value = '';
             return;
         }
+        minPerMi.classList.remove('incorrectInput');
         // console.log(`Got ${minsOfNum}min ${secsOfNum}secs`)
         const totalSecs = (minsOfNum * 60) + secsOfNum;
         // hereon doing stuff only for min/km
@@ -127,15 +176,18 @@ minPerMi.addEventListener('input', (event) => {
             secsRounded = '00';
             minOfKm += 1;
         }
-        minPerKm.value = `${minOfKm}${secsRounded}`;
+        minPerKm.value = `${minOfKm}:${secsRounded}`;
+        minPerKm.classList.remove('incorrectInput');
         // hereon doing stuff only for kph
         const newKphVal = Math.round((3600 / totalSecsForKm + Number.EPSILON) * 100) / 100;
         // console.log(newKphVal, 'totalsecsfor kph')
         kph.value = newKphVal.toString();
+        kph.classList.remove('incorrectInput');
         // hereon doing stuff only for mph
         const newMphVal = Math.round((3600 / totalSecs + Number.EPSILON) * 100) / 100;
         // console.log(newMphVal, 'new mph val')
         mph.value = newMphVal.toString();
+        mph.classList.remove('incorrectInput');
         // God only knows how i built this formula. Reason why i didn't keep slider same val as tot min/km secs is because i want inverse handling of slider.
         const newValOfSlider = MAX_SLIDER_VAL - (totalSecsForKm - MIN_SLIDER_VAL) * 2 + (totalSecsForKm - MIN_SLIDER_VAL);
         theSlider.value = newValOfSlider.toString();
@@ -143,6 +195,7 @@ minPerMi.addEventListener('input', (event) => {
     }
     else {
         console.warn('WRONG NUM BROOOOOOOOO');
+        minPerMi.classList.add('incorrectInput');
         minPerKm.value = '';
         kph.value = '';
         mph.value = '';
@@ -152,6 +205,7 @@ kph.addEventListener('input', (event) => {
     const theNumInputted = event.target.value;
     const inputIsValid = validationForKphMphInput(theNumInputted);
     if (inputIsValid) {
+        kph.classList.remove('incorrectInput');
         const secsPerKm = 3600 / parseFloat(theNumInputted);
         const secsPerMi = secsPerKm * 1.60934;
         // doing kph to minPerKm
@@ -169,6 +223,7 @@ kph.addEventListener('input', (event) => {
             minOfKm += 1;
         }
         minPerKm.value = `${minOfKm}${secsRounded}`;
+        minPerKm.classList.remove('incorrectInput');
         // doing kph to minPerMi
         let minOfMile = Math.floor(secsPerMi / 60);
         // console.log(minOfMile, 'min of mile')
@@ -184,9 +239,11 @@ kph.addEventListener('input', (event) => {
             minOfMile += 1;
         }
         minPerMi.value = `${minOfMile}${secsRoundedForMi}`;
+        minPerMi.classList.remove('incorrectInput');
         // // hereon doing stuff only for mph
         const funkyNum = parseFloat(theNumInputted) * 0.621371;
         mph.value = (Math.round((funkyNum + Number.EPSILON) * 100) / 100).toString();
+        mph.classList.remove('incorrectInput');
         // God only knows how i built this formula. Reason why i didn't keep slider same val as tot min/km secs is because i want inverse handling of slider.
         const newValOfSlider = MAX_SLIDER_VAL - (secsPerKm - MIN_SLIDER_VAL) * 2 + (secsPerKm - MIN_SLIDER_VAL);
         theSlider.value = newValOfSlider.toString();
@@ -194,6 +251,7 @@ kph.addEventListener('input', (event) => {
     }
     else {
         console.warn('WRONG NUM in KPH BROOOOOOOOO');
+        kph.classList.add('incorrectInput');
         minPerKm.value = '';
         minPerMi.value = '';
         mph.value = '';
@@ -203,6 +261,7 @@ mph.addEventListener('input', (event) => {
     const theNumInputted = event.target.value;
     const inputIsValid = validationForKphMphInput(theNumInputted);
     if (inputIsValid) {
+        mph.classList.remove('incorrectInput');
         const secsPerMi = 3600 / parseFloat(theNumInputted);
         const secsPerKm = secsPerMi * 0.621371;
         // doing mph to minPerKm
@@ -220,6 +279,7 @@ mph.addEventListener('input', (event) => {
             minOfKm += 1;
         }
         minPerKm.value = `${minOfKm}${secsRounded}`;
+        minPerKm.classList.remove('incorrectInput');
         // doing mph to minPerMi
         let minOfMile = Math.floor(secsPerMi / 60);
         // console.log(minOfMile, 'min of mile')
@@ -235,9 +295,11 @@ mph.addEventListener('input', (event) => {
             minOfMile += 1;
         }
         minPerMi.value = `${minOfMile}${secsRoundedForMi}`;
+        minPerMi.classList.remove('incorrectInput');
         // // hereon doing stuff only for mph to kph
         const funkyNum = parseFloat(theNumInputted) * 1.60934;
         kph.value = (Math.round((funkyNum + Number.EPSILON) * 100) / 100).toString();
+        kph.classList.remove('incorrectInput');
         // God only knows how i built this formula. Reason why i didn't keep slider same val as tot min/km secs is because i want inverse handling of slider.
         const newValOfSlider = MAX_SLIDER_VAL - (secsPerKm - MIN_SLIDER_VAL) * 2 + (secsPerKm - MIN_SLIDER_VAL);
         theSlider.value = newValOfSlider.toString();
@@ -245,6 +307,7 @@ mph.addEventListener('input', (event) => {
     }
     else {
         console.warn('WRONG NUM in KPH BROOOOOOOOO');
+        mph.classList.add('incorrectInput');
         minPerKm.value = '';
         minPerMi.value = '';
         kph.value = '';
@@ -253,7 +316,7 @@ mph.addEventListener('input', (event) => {
 function validateMMSSInput(theNumInputted) {
     const regex = /^\d{1,}$/;
     const isValid = regex.test(theNumInputted);
-    if (isValid) {
+    if (isValid && parseInt(theNumInputted) !== 0) {
         return true;
     }
     else {
@@ -261,7 +324,7 @@ function validateMMSSInput(theNumInputted) {
     }
 }
 function validationForKphMphInput(theNumInputted) {
-    if (parseFloat(theNumInputted) <= 0) {
+    if (parseFloat(theNumInputted) <= 0 || !theNumInputted) {
         return false;
     }
     else

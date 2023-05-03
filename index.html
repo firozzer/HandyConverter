@@ -15,14 +15,16 @@
   <div id="holderForTxtInputs">
     <div id="runningPace">
       <div class="respectivePaceSections">
-        <input type="number" id="minPerKm" name="minPerKm" class="paceInputs"">
+        <p hidden class="alertMsg">Incorrect input</p>
+        <input type="text" id="minPerKm" placeholder="mmss" min="1" name="minPerKm" class="paceInputs runPace"">
         <label for="minPerKm" class="paceInputs">mmss / km</label>
         <br> <br>
         <input type="number" id="kph" name="kph" class="paceInputs"" step="0.1">
         <label for="kph" class="paceInputs">kph</label>
       </div>
       <div class="respectivePaceSections">
-        <input type="number" id="minPerMi" name="minPerMi" class="paceInputs"">
+        <p hidden class="alertMsg">Incorrect input</p>
+        <input type="text" placeholder="mmss" min="1" id="minPerMi" name="minPerMi" class="paceInputs runPace"">
         <label for="minPerMi" class="paceInputs">mmss / mi</label>
         <br> <br>
         <input type="number" id="mph" name="mph" class="paceInputs" step="0.1" ">

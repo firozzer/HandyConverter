@@ -1,3 +1,7 @@
+.incorrectInput {
+    outline: 0.2em solid red;
+}
+
 body {
     color: lightgrey;
     background-color: black;
