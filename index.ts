@@ -51,6 +51,7 @@ theSlider.addEventListener("input", (event) => {
 minPerKm.addEventListener('input', (event) => {
   let minsOfNum=0
   const theNumInputted = (event.target as HTMLInputElement).value
+
   const inputIsValid = validateMMSSInput(theNumInputted)
   if (inputIsValid) {
     if (theNumInputted.length > 2) {
@@ -68,16 +69,19 @@ minPerKm.addEventListener('input', (event) => {
     const totalSecs = (minsOfNum*60) + secsOfNum
 
     // hereon doing stuff only for min/mi
-    const totalSecsForMile = totalSecs * 0.621371
+    const totalSecsForMile = totalSecs * 1.60934
     // console.log(totalSecs, totalSecsForMile, 'total secs')
-    const minOfMile = Math.floor(totalSecsForMile / 60)
+    let minOfMile = Math.floor(totalSecsForMile / 60)
     // console.log(minOfMile, 'min of mile')
     const secsOfMile = totalSecsForMile % 60
-    // console.log(secsOfMile, 'secs of mile')
+    console.log(secsOfMile, 'secs of mile')
     let secsRounded: any = Math.round((secsOfMile + Number.EPSILON)) 
     // console.log(secsRounded, 'secsrounded')
-    if (secsRounded < 10) {
+    if (secsRounded < 10) { // padding zero in front if secss is single digit
       secsRounded = 0 + secsRounded.toString()
+    } else if (secsRounded == 60) { // if this then increasing min by 1 & padding 00 at end
+      secsRounded = '00'
+      minOfMile += 1
     }
     minPerMi.value = `${minOfMile}${secsRounded}`
 
@@ -94,7 +98,7 @@ minPerKm.addEventListener('input', (event) => {
 
     // God only knows how i built this formula. Reason why i didn't keep slider same val as tot min/km secs is because i want inverse handling of slider.
     const newValOfSlider = MAX_SLIDER_VAL - (totalSecs - MIN_SLIDER_VAL) * 2 + (totalSecs - MIN_SLIDER_VAL)
-    theSlider.value = newValOfSlider
+    theSlider.value = newValOfSlider.toString()
     console.log('succuly done all', newValOfSlider, totalSecs)
   } else {
     console.warn('WRONG NUM BROOOOOOOOO')
@@ -103,6 +107,67 @@ minPerKm.addEventListener('input', (event) => {
     mph.value = ''
   }
 })
+
+minPerMi.addEventListener('input', (event) => {
+  let minsOfNum=0
+  const theNumInputted = (event.target as HTMLInputElement).value
+
+  const inputIsValid = validateMMSSInput(theNumInputted)
+  if (inputIsValid) {
+    if (theNumInputted.length > 2) {
+      minsOfNum = parseInt(theNumInputted.slice(0,-2))
+    }
+    const secsOfNum = parseInt(theNumInputted.slice(-2))
+    if (secsOfNum > 59) {
+      console.warn('WRONG sECS SISSSSSSSSS')
+      minPerKm.value = '';
+      kph.value = ''
+      mph.value = ''
+      return
+    }
+    // console.log(`Got ${minsOfNum}min ${secsOfNum}secs`)
+    const totalSecs = (minsOfNum*60) + secsOfNum
+
+    // hereon doing stuff only for min/km
+    const totalSecsForKm = totalSecs / 1.60934
+    // console.log(totalSecs, totalSecsForKm, 'total secs')
+    let minOfKm = Math.floor(totalSecsForKm / 60)
+    // console.log(minOfKm, 'min of Km')
+    const secsOfKm = totalSecsForKm % 60
+    console.log(secsOfKm, 'secs of km')
+    let secsRounded: any = Math.round((secsOfKm + Number.EPSILON)) 
+    // console.log(secsRounded, 'secsrounded')
+    if (secsRounded < 10) { // padding zero in front if secss is single digit
+      secsRounded = 0 + secsRounded.toString()
+    } else if (secsRounded == 60) { // if this then increasing min by 1 & padding 00 at end
+      secsRounded = '00'
+      minOfKm += 1
+    }
+    minPerKm.value = `${minOfKm}${secsRounded}`    
+
+    // hereon doing stuff only for kph
+    const newKphVal = Math.round((3600 / totalSecsForKm + Number.EPSILON) * 100) / 100
+    // console.log(newKphVal, 'totalsecsfor kph')
+    kph.value = newKphVal.toString()
+    
+    // hereon doing stuff only for mph
+    const newMphVal = Math.round((3600 / totalSecs + Number.EPSILON) * 100) / 100
+    // console.log(newMphVal, 'new mph val')
+    mph.value = newMphVal.toString()
+
+    // God only knows how i built this formula. Reason why i didn't keep slider same val as tot min/km secs is because i want inverse handling of slider.
+    const newValOfSlider = MAX_SLIDER_VAL - (totalSecsForKm - MIN_SLIDER_VAL) * 2 + (totalSecsForKm - MIN_SLIDER_VAL)
+    theSlider.value = newValOfSlider.toString()
+    console.log('succuly done all')
+  } else {
+    console.warn('WRONG NUM BROOOOOOOOO')
+    minPerKm.value = ''
+    kph.value = ''
+    mph.value = ''
+  }
+})
+
+
 
 function validateMMSSInput(theNumInputted: string){
   const regex = /^\d{1,}$/
