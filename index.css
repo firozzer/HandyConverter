@@ -11,10 +11,12 @@ span {
 }
 
 .suffix {
+    font-size: 1.5rem;
     background-color: #444444;
     border-left: 0;
-    width: 50px;
-    color: #bbbbbb;
+    padding-right: 1rem;
+    white-space: nowrap; /* to prevent wrapping when zooming in */
+    color: #aaaaaa;
     border-radius: 0 0.2em 0.2em 0;
 }
 
