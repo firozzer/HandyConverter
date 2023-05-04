@@ -1,3 +1,22 @@
+body {
+    color: lightgray;
+    background-color: black;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#contForTxtInputs {
+    display: flex;
+    justify-content: space-around;
+}
+
+.contForEachSport {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+}
+
 .incorrectInput {
     outline: 0.2em solid red;
 }
@@ -5,7 +24,6 @@
 .paceInputs {
     font-size: 1.4em;
     color: white;
-    width: 100%;
     text-align: center;
     border-radius: 10%;
 }
@@ -14,50 +32,30 @@ input{
     background-color: #444444;
 }
 
-/* Portrait */
 @media screen and (orientation:portrait) {    
     .contForEachSport {
-        display: flex;
-        flex-direction: column;
         align-items: center;
-        gap: 1.5em;
     }
 
     #contForTxtInputs {
         height: 100%;
-        display: flex;
         flex-direction: column;
-        justify-content: space-around;
     }
 
-    body {
-        background-color: black;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-    }
-    
     input[type=range][orient=vertical]
     {
         -webkit-appearance: slider-vertical; /* Chromium */
         height: 90vh;
     }
+ 
     .paceInputs {
         width: 70%;
     }
 }
-/* Landscape */
-@media screen and (orientation:landscape) {
-    .contForEachSport {
-        display: flex;
-        flex-direction: column;
-        gap: 1em;
-    }
 
+@media screen and (orientation:landscape) {
     #contForTxtInputs {
         width: 100%;
-        justify-content: space-around;
-        display: flex;
     }
 
     input[type=range] {
@@ -66,10 +64,6 @@ input{
 
     body {
         height: 80%;
-        background-color: black;
-        display: flex;
         flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
     }
 }
