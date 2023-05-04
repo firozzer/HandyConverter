@@ -2,55 +2,48 @@
     outline: 0.2em solid red;
 }
 
-body {
-    color: lightgrey;
-    background-color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.respectivePaceSections{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .paceInputs {
     font-size: 1.4em;
     color: white;
     width: 100%;
     text-align: center;
-    width: 40%;
     border-radius: 10%;
 }
 
-#runningPace {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100vw;
+input{
+    background-color: #444444;
 }
-
-    input{
-        background-color: #444444;
-    }
-
-    #holderForTxtInputs {
-        position: absolute;
-        top: 50%;
-        transform: translate(0, -50%);
-    }
-
 
 /* Portrait */
 @media screen and (orientation:portrait) {    
+    .contForEachSport {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5em;
+    }
+
+    #contForTxtInputs {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    body {
+        background-color: black;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    
     input[type=range][orient=vertical]
     {
-        z-index: 1;
-        position: absolute;
         -webkit-appearance: slider-vertical; /* Chromium */
         height: 90vh;
+    }
+    .paceInputs {
+        width: 70%;
     }
 }
 /* Landscape */
