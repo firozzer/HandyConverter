@@ -30,10 +30,7 @@ mph.value = (Math.round((someMiVal + Number.EPSILON) * 100) / 100).toString()
 
 // if slider is slid, change the valuessd
 theSlider.addEventListener("input", (event) => {
-  // ProbA start - doing this as when on mob run pace is focussed & user slides, run pace input stays blank. This is my solution for that.
-  minPerKm.blur()
-  minPerMi.blur()
-  // ProbA ends
+  theSlider.focus() // om mob if input focussed & you slide, kb dsnt go away. Bad UX imo. Hence this.
 
   const valOfSlider = parseInt((event.target as HTMLInputElement).value)
   // God knows below formula. Reason why i didn't keep slider same val as tot min/km secs is because i want inverse handling of slider.
