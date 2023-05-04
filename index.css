@@ -1,3 +1,23 @@
+
+span {
+    display: flex;
+    align-items: center;
+    padding: 0 0 0 10;
+}
+
+.preFormattedInput {
+    display: flex;
+    justify-content: center;
+}
+
+.suffix {
+    background-color: #444444;
+    border-left: 0;
+    width: 50px;
+    color: #bbbbbb;
+    border-radius: 0 0.2em 0.2em 0;
+}
+
 body {
     color: lightgray;
     background-color: black;
@@ -17,19 +37,23 @@ body {
     gap: 1.5em;
 }
 
-.incorrectInput {
-    outline: 0.2em solid red;
+.incorrectInput { 
+    /* Important is needed so that it overrides the border 0 in .paceInputs */
+    border-left: 0.5em red solid !important;
 }
 
 .paceInputs {
-    font-size: 1.4em;
+    border: 0;
+    font-size: 1.5em;
     color: white;
-    text-align: center;
-    border-radius: 10%;
+    border-radius: 0.2em 0 0 0.2em;
+    text-align: right;
+    border-right: 0;
+    background-color: #444444;
 }
 
-input{
-    background-color: #444444;
+.paceInputs:focus {
+    outline: 0;
 }
 
 @media screen and (orientation:portrait) {    
@@ -54,6 +78,10 @@ input{
 }
 
 @media screen and (orientation:landscape) {
+    .paceInputs {
+        max-width: 30vw;
+    }
+
     #contForTxtInputs {
         width: 100%;
     }
