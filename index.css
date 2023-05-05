@@ -1,3 +1,11 @@
+footer {
+    position: absolute;
+    bottom: 0;
+}
+
+footer > a {
+    color: yellow;
+}
 
 span {
     display: flex;
@@ -73,6 +81,12 @@ body {
  
     .paceInputs {
         width: 70%;
+    }
+
+    footer {
+        font-size: 0.7rem;
+        z-index: 0;
+        left: 10;
     }
 }
 
