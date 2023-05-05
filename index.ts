@@ -28,6 +28,19 @@ const secsForAMi = secsOfSlider * 1.60934
 const someMiVal = 3600 / secsForAMi
 mph.value = (Math.round((someMiVal + Number.EPSILON) * 100) / 100).toString()
 
+// Firefox needs 'orient=vertical' html attr to show input range element vertically. Sothis bit removes that attr if in landscape. EventListnr therafter adds back/removes respectly. Chromium just needs -webkit-appearance: slider-vertical in CSS, which is ideal.
+const orientationIsLandscape = window.matchMedia("(orientation: landscape)");
+if (orientationIsLandscape.matches) {
+  theSlider.removeAttribute('orient')
+}
+orientationIsLandscape.addEventListener('change', () => {
+  if (orientationIsLandscape.matches) {
+    theSlider.removeAttribute('orient')
+  } else {
+    theSlider.setAttribute('orient', 'vertical')
+  }
+})
+
 // if slider is slid, change the valuessd
 theSlider.addEventListener("input", (event) => {
   theSlider.focus() // om mob if input focussed & you slide, kb dsnt go away. Bad UX imo. Hence this.

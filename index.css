@@ -4,7 +4,7 @@ footer {
 }
 
 footer > a {
-    color: yellow;
+    color: orange;
 }
 
 span {
@@ -73,10 +73,11 @@ body {
         flex-direction: column;
     }
 
-    input[type=range][orient=vertical]
+    #theSlider
     {
-        -webkit-appearance: slider-vertical; /* Chromium */
+        -webkit-appearance: slider-vertical; /* Chromium needs just this to show input range vertically. Firefox sadly doesn't accept this.*/
         height: 90vh;
+        width: 40vw; /* need this because owise firefox throw it too much to right*/
     }
  
     .paceInputs {
@@ -91,7 +92,7 @@ body {
 }
 
 @media screen and (orientation:landscape) {
-    input[type=range] {
+    #theSlider{
         width: 95vw;
         padding: 2rem 0 2rem 0;
     }
