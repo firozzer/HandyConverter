@@ -30,13 +30,14 @@ body {
 
 #contForTxtInputs {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 5rem;
 }
 
 .contForEachSport {
     display: flex;
     flex-direction: column;
-    gap: 1.5em;
+    gap: 1.1rem;
 }
 
 .incorrectInput { 
@@ -59,10 +60,6 @@ body {
 }
 
 @media screen and (orientation:portrait) {    
-    .contForEachSport {
-        align-items: center;
-    }
-
     #contForTxtInputs {
         height: 100%;
         flex-direction: column;
@@ -80,16 +77,9 @@ body {
 }
 
 @media screen and (orientation:landscape) {
-    .paceInputs {
-        max-width: 30vw;
-    }
-
-    #contForTxtInputs {
-        width: 100%;
-    }
-
     input[type=range] {
         width: 95vw;
+        padding: 2rem 0 2rem 0;
     }
 
     body {
