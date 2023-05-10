@@ -10,3 +10,9 @@
 !LICENCE
 !tsconfig.json
 !favicon.ico
+!sw.js
+!manifest.json
+!icons/*.png
+
+# ... even if they're in subdirectories
+!*/
