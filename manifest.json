@@ -4,7 +4,8 @@
     "start_url": ".",
     "display": "standalone",
     "background_color": "#000",
-    "theme_color": "#000",
+    "theme_color": "#fff",
+    "orientation": "natural",
     "description": "Convert running pace/cycling speed easily using a slider (km/min, mi/min, kph, mph)",
     "icons": [
       {
