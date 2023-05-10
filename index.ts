@@ -1,3 +1,13 @@
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').then(registration=>{
+    console.log("Service worker registeredddddddd")
+    console.log(registration)
+  }).catch(error => {
+    console.log("Service worker rgstrn ffffffffffffffailed")
+    console.log(error)
+  })
+}
+
 // magic numbers
 const MAX_SLIDER_VAL = 900 // corresponds to 900 secs
 const MIN_SLIDER_VAL = 60 // corresponds to 60 secs
