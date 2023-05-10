@@ -1,18 +1,2 @@
-# ignore everything...
-*
-
-# ... except these files
-!index.html
-!index.css
-!index.ts
-!index.js
-!.gitignore
-!LICENCE
-!tsconfig.json
-!favicon.ico
-!sw.js
-!manifest.json
-!icons/*.png
-
-# ... even if they're in subdirectories
-!*/
+test*
+vs.code-workspace
