@@ -85,6 +85,7 @@ body {
     }
 
     footer {
+        font-size: 0.7rem;
         z-index: 0;
         left: 10;
     }
